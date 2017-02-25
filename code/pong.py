@@ -18,6 +18,9 @@ ball = objects.Ball(windowWidth/2, windowHeight/2, pygame, surface, 15)
 leftBat = objects.Bat(10, windowHeight/2, pygame, surface, 15, 100)
 rightBat = objects.Bat(windowWidth - 25, windowHeight/2, pygame, surface, 15, 100)
 
+def drawScore():
+    return
+
 def quitGame():
     print(ball.score)
     pygame.quit()
