@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, os
 import pygame.event as GAME_EVENTS
 import pygame.time as GAME_TIME
 
@@ -9,6 +9,8 @@ windowHeight = 600
 
 pygame.init()
 surface = pygame.display.set_mode((windowWidth, windowHeight))
+scoreFontFile = open(os.path.abspath("../assets/pong_score.ttf"), "r")
+scoreFont = pygame.font.Font(scoreFontFile, 50)
 
 pygame.display.set_caption("Pong")
 
@@ -19,10 +21,18 @@ leftBat = objects.Bat(10, windowHeight/2, pygame, surface, 15, 100)
 rightBat = objects.Bat(windowWidth - 25, windowHeight/2, pygame, surface, 15, 100)
 
 def drawScore():
-    return
+    scoreColour = (127,127,127)
+    
+    p1Score = scoreFont.render(str(ball.score[0]), 1, scoreColour)
+    p2Score = scoreFont.render(str(ball.score[1]), 1, scoreColour)
 
+    thirdOfWindow = windowWidth/3
+    surface.blit(p1Score, (300 - scoreFont.size(str(ball.score[0]))[0]/2, 50)) # If uncentred try this after thirdOfWindow, without "": ""
+    surface.blit(p2Score, (500 - scoreFont.size(str(ball.score[1]))[0]/2, 50)) # ""
+    
 def quitGame():
     print(ball.score)
+    scoreFontFile.close()
     pygame.quit()
     sys.exit()
 
@@ -65,6 +75,8 @@ while True:
 
         if event.type == pygame.QUIT:
             quitGame()
+
+    drawScore()
 
     ball.move(windowWidth, windowHeight, leftBat, rightBat)
     if ball.scored and GAME_TIME.get_ticks() - ball.scoredTime < ball.pauseTime:
