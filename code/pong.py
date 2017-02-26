@@ -20,6 +20,17 @@ ball = objects.Ball(windowWidth/2, windowHeight/2, pygame, surface, 15)
 leftBat = objects.Bat(10, windowHeight/2, pygame, surface, 15, 100)
 rightBat = objects.Bat(windowWidth - 25, windowHeight/2, pygame, surface, 15, 100)
 
+def drawNet():
+    numberOfLines = 10
+    width = 20
+    height = windowHeight / (numberOfLines*2)
+    centre = windowWidth/2
+    i = 0
+
+    while i != windowHeight: # Note: add offset so it looks more even and score too
+        pygame.draw.line(surface, (127,127,127), (centre, i), (centre, i+height), width)
+        i += 2*height
+
 def drawScore():
     scoreColour = (127,127,127)
     
@@ -27,8 +38,8 @@ def drawScore():
     p2Score = scoreFont.render(str(ball.score[1]), 1, scoreColour)
 
     thirdOfWindow = windowWidth/3
-    surface.blit(p1Score, (300 - scoreFont.size(str(ball.score[0]))[0]/2, 50)) # If uncentred try this after thirdOfWindow, without "": ""
-    surface.blit(p2Score, (500 - scoreFont.size(str(ball.score[1]))[0]/2, 50)) # ""
+    surface.blit(p1Score, (300 - scoreFont.size(str(ball.score[0]))[0]/2, 50))
+    surface.blit(p2Score, (500 - scoreFont.size(str(ball.score[1]))[0]/2, 50))
     
 def quitGame():
     print(ball.score)
@@ -77,6 +88,8 @@ while True:
             quitGame()
 
     drawScore()
+
+    drawNet()
 
     ball.move(windowWidth, windowHeight, leftBat, rightBat)
     if ball.scored and GAME_TIME.get_ticks() - ball.scoredTime < ball.pauseTime:
