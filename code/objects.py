@@ -10,7 +10,9 @@ class Ball():
         self.surface = surface
         self.radius = radius
 
-        self.dx = 3
+        self.dx = random.randint(-1, 1) * 3
+        while self.dx == 0:
+            self.dx = random.randint(-1, 1) * 3
         self.dy = random.randint(-3, 3)
         while self.dy == 0:
             self.dy = random.randint(-3, 3)
@@ -29,7 +31,9 @@ class Ball():
         self.x = self.startPos[0]
         self.y = self.startPos[1]
 
-        self.dx = 3
+        self.dx = random.randint(-1, 1) * 3
+        while self.dx == 0:
+            self.dx = random.randint(-1, 1) * 3
         self.dy = random.randint(-3, 3)
         while self.dy == 0:
             self.dy = random.randint(-3, 3)
