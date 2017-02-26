@@ -45,13 +45,12 @@ class Ball():
             
         # Left side
         if self.x - self.radius < 0:
-##            self.dx *= -1
             self.score[1] += 1
             self.resetBall()
             return "left"
+        
         # Right side
         elif self.x + self.radius > windowWidth:
-##            self.dx *= -1
             self.score[0] += 1
             self.resetBall()
             return "right"
@@ -59,11 +58,10 @@ class Ball():
         # Left Bat
         if self.x - self.radius < leftBat.x + leftBat.width and leftBat.y < self.y < leftBat.y + leftBat.height:
             self.dx *= -1
-##            self.dy = self.dy/2 + leftBat.dy/3
+            
         # Right Bat
         if self.x + self.radius > rightBat.x and rightBat.y < self.y < rightBat.y + rightBat.height:
             self.dx *= -1
-##            self.dy = self.dy/2 + rightBat.dy/3
 
     def move(self, windowWidth, windowHeight, leftBat, rightBat):
         if not self.scored:
