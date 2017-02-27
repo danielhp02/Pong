@@ -25,6 +25,8 @@ class Ball():
 
         self.scored = False
 
+        self.nggyu = self.pygame.mixer.Sound("../assets/nggyu.ogg")
+
     def resetBall(self):
         self.scored = True
         self.scoredTime = self.pygame.time.get_ticks()
@@ -47,12 +49,16 @@ class Ball():
         if self.x - self.radius < 0:
             self.score[1] += 1
             self.resetBall()
+            if random.random() < 0.2:
+                self.nggyu.play()
             return "left"
         
         # Right side
         elif self.x + self.radius > windowWidth:
             self.score[0] += 1
             self.resetBall()
+            if random.random() < 0.2:
+                self.nggyu.play()
             return "right"
 
         # Left Bat

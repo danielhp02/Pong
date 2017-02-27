@@ -9,6 +9,7 @@ windowHeight = 600
 centreX = windowWidth/2
 
 pygame.init()
+pygame.mixer.init()
 surface = pygame.display.set_mode((windowWidth, windowHeight))
 scoreFontFile = open(os.path.abspath("../assets/pong_score.ttf"), "r")
 scoreFont = pygame.font.Font(scoreFontFile, 50)
