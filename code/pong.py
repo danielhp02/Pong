@@ -6,6 +6,7 @@ import objects
 
 windowWidth = 800
 windowHeight = 600
+centreX = windowWidth/2
 
 pygame.init()
 surface = pygame.display.set_mode((windowWidth, windowHeight))
@@ -21,14 +22,14 @@ leftBat = objects.Bat(10, windowHeight/2, pygame, surface, 15, 100)
 rightBat = objects.Bat(windowWidth - 25, windowHeight/2, pygame, surface, 15, 100)
 
 def drawNet():
-    numberOfLines = 10
-    width = 20
+    numberOfLines = 20
+    width = 15
     height = windowHeight / (numberOfLines*2)
-    centre = windowWidth/2
-    i = 0
+    
+    i = height/2
 
-    while i != windowHeight: # Note: add offset so it looks more even and score too
-        pygame.draw.line(surface, (127,127,127), (centre, i), (centre, i+height), width)
+    while i < windowHeight:
+        pygame.draw.line(surface, (127,127,127), (centreX, i), (centreX, i+height), width)
         i += 2*height
 
 def drawScore():
@@ -37,9 +38,9 @@ def drawScore():
     p1Score = scoreFont.render(str(ball.score[0]), 1, scoreColour)
     p2Score = scoreFont.render(str(ball.score[1]), 1, scoreColour)
 
-    thirdOfWindow = windowWidth/3
-    surface.blit(p1Score, (300 - scoreFont.size(str(ball.score[0]))[0]/2, 50))
-    surface.blit(p2Score, (500 - scoreFont.size(str(ball.score[1]))[0]/2, 50))
+    thirdOfWindow = windowWidth//3
+    surface.blit(p1Score, (centreX - 100 - scoreFont.size( str(ball.score[1]) )[0] // 2, 50))
+    surface.blit(p2Score, (centreX + 100, 50)) # - scoreFont.size( str(ball.score[1]) )[0] // 2
     
 def quitGame():
     print(ball.score)
