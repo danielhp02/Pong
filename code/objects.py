@@ -21,11 +21,17 @@ class Ball():
 
         self.score = [0,0]
         self.pauseTime = 500 # The amount of time (in milliseconds) that the ball stops for after a point is won
-        self.scoredTime = 0 # The time when the last point was scored
+        self.scoredTime = 0  # The time when the last point was scored
 
         self.scored = False
 
         self.nggyu = self.pygame.mixer.Sound("../assets/nggyu.ogg")
+        self.cej = self.pygame.mixer.Sound("../assets/cej.ogg")
+        self.songs = [self.nggyu, self.cej]
+
+    def playSong(self):
+        if random.random() < 0.2:
+            random.choice(self.songs).play()
 
     def resetBall(self):
         self.scored = True
@@ -44,27 +50,25 @@ class Ball():
         # Boundaries First
         if self.y - self.radius < 0 or self.y + self.radius > windowHeight:
             self.dy *= -1
-            
+
         # Left side
         if self.x - self.radius < 0:
             self.score[1] += 1
             self.resetBall()
-            if random.random() < 0.2:
-                self.nggyu.play()
+            self.playSong()
             return "left"
-        
+
         # Right side
         elif self.x + self.radius > windowWidth:
             self.score[0] += 1
             self.resetBall()
-            if random.random() < 0.2:
-                self.nggyu.play()
+            self.playSong()
             return "right"
 
         # Left Bat
         if self.x - self.radius < leftBat.x + leftBat.width and leftBat.y < self.y < leftBat.y + leftBat.height:
             self.dx *= -1
-            
+
         # Right Bat
         if self.x + self.radius > rightBat.x and rightBat.y < self.y < rightBat.y + rightBat.height:
             self.dx *= -1
