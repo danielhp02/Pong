@@ -47,18 +47,18 @@ class Ball():
             self.dy = random.randint(-3, 3)
 
     def checkForCollisions(self, windowWidth, windowHeight, leftBat, rightBat):
-        # Boundaries First
+        # Check For collision with top and bottom boundaries
         if self.y - self.radius < 0 or self.y + self.radius > windowHeight:
             self.dy *= -1
 
-        # Left side
+        # Left side - awards point to right player
         if self.x - self.radius < 0:
             self.score[1] += 1
             self.resetBall()
             self.playSong()
             return "left"
 
-        # Right side
+        # Right side - awards point to left player
         elif self.x + self.radius > windowWidth:
             self.score[0] += 1
             self.resetBall()
@@ -68,10 +68,16 @@ class Ball():
         # Left Bat
         if self.x - self.radius < leftBat.x + leftBat.width and leftBat.y < self.y < leftBat.y + leftBat.height:
             self.dx *= -1
+            if leftBat.isMoving:
+                self.dx *= 1.1
+                self.dy *= 1.1
 
         # Right Bat
         if self.x + self.radius > rightBat.x and rightBat.y < self.y < rightBat.y + rightBat.height:
             self.dx *= -1
+            if rightBat.isMoving:
+                self.dx *= 1.1
+                self.dy *= 1.1
 
     def move(self, windowWidth, windowHeight, leftBat, rightBat):
         if not self.scored:
@@ -83,7 +89,7 @@ class Ball():
         if drawAtStartPos:
             self.pygame.draw.circle(self.surface, self.colour, (self.startPos[0], self.startPos[1]), self.radius)
         else:
-            self.pygame.draw.circle(self.surface, self.colour, (self.x, self.y), self.radius)
+            self.pygame.draw.circle(self.surface, self.colour, (int(round(self.x)), int(round(self.y))), self.radius)
             self.scored = False
 
 class Bat(object):
@@ -99,16 +105,20 @@ class Bat(object):
 
         self.speed = 2.5
         self.dy = 0
+        self.isMoving = False
 
         self.colour = (255, 255, 255)
 
     def move(self, up, down, bottomLimit):
         if up and self.y > 0:
             self.dy = -self.speed
+            self.isMoving = True
         elif down and self.y + self.height < bottomLimit:
             self.dy = self.speed
+            self.isMoving = True
         else:
             self.dy = 0
+            self.isMoving = False
 
         self.y += self.dy
 
