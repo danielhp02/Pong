@@ -77,12 +77,12 @@ class Ball():
         # Left Bat - Note for both bats: the collisions are only with the innermost side.
         if self.x - self.radius < leftBat.x + leftBat.width and leftBat.y < self.y < leftBat.y + leftBat.height:
             self.dx *= -1
-            self.speedUp()
+            self.speedUp(leftBat, rightBat)
 
         # Right Bat
         if self.x + self.radius > rightBat.x and rightBat.y < self.y < rightBat.y + rightBat.height:
             self.dx *= -1
-            self.speedUp()
+            self.speedUp(leftBat, rightBat)
 
     def move(self, windowWidth, windowHeight, leftBat, rightBat):
         self.checkForCollisions(windowWidth, windowHeight, leftBat, rightBat)
@@ -97,7 +97,7 @@ class Ball():
             self.scored = False
 
     # Speeds the ball up if the bat it is colliding with is moving during the collision
-    def speedUp():
+    def speedUp(self, leftBat, rightBat):
         if leftBat.isMoving or rightBat.isMoving:
             self.dx *= 1.1
             self.dy *= 1.1
