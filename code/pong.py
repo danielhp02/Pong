@@ -10,11 +10,11 @@ windowHeight = 600
 centreX = windowWidth/2
 centreY = windowHeight/2
 
-# Initialize Pygame and the mixer
+# Initialise Pygame and the mixer
 pygame.init()
 pygame.mixer.init()
 
-# Initialize the surface for objects to be drawn on
+# Initialise the surface for objects to be drawn on
 surface = pygame.display.set_mode((windowWidth, windowHeight))
 
 # Get a font for the score display set up
@@ -28,7 +28,7 @@ pygame.display.set_caption("Pong")
 # continuous movement
 controlsState = {"leftUp": False, "leftDown": False, "rightUp": False, "rightDown": False}
 
-# Initialize the game objects
+# Initialise the game objects
 ball = objects.Ball(centreX, centreY, pygame, surface, 15)
 leftBat = objects.Bat(10, centreY, pygame, surface, 15, 100)
 rightBat = objects.Bat(windowWidth - 25, centreY, pygame, surface, 15, 100)
