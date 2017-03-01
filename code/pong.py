@@ -39,11 +39,9 @@ def drawNet():
     width = 15
     height = windowHeight / (numberOfLines*2)
 
-    i = height/2 # i is not initialized to 0 because it is offset to make the line a bit more centred
-
-    while i < windowHeight:
+    # i is not set to 0 because it is offset to make the line a bit more centred
+    for i in range(height/2, windowHeight, 2*height):
         pygame.draw.line(surface, (127,127,127), (centreX, i), (centreX, i+height), width)
-        i += 2*height
 
 # Display the score for the users to see during the game
 def drawScore():
